@@ -1,0 +1,189 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="EmlakModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Detay">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="OdaSayisi" Type="nvarchar" MaxLength="50" />
+    <Property Name="BinaYasi" Type="nvarchar" MaxLength="50" />
+    <Property Name="BinaKati" Type="nvarchar" MaxLength="50" />
+    <Property Name="Kat" Type="nvarchar" MaxLength="50" />
+    <Property Name="Isitma" Type="nvarchar" MaxLength="50" />
+    <Property Name="Esyalimi" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="Ilan">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="KategoriId" Type="int" Nullable="false" />
+    <Property Name="KullaniciId" Type="int" Nullable="false" />
+    <Property Name="DetayId" Type="int" Nullable="false" />
+    <Property Name="OzellikId" Type="int" Nullable="false" />
+    <Property Name="Baslik" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Fiyat" Type="nvarchar" MaxLength="10" Nullable="false" />
+    <Property Name="Tarih" Type="datetime" Nullable="false" />
+    <Property Name="Vitrin" Type="nvarchar" MaxLength="500" Nullable="false" />
+    <Property Name="VitrinResim" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Adres" Type="nvarchar" MaxLength="500" Nullable="false" />
+    <Property Name="Aciklama" Type="nvarchar" MaxLength="500" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Kategori">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="KategoriAdi" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Aciklama" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="Kullanici">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="RolId" Type="int" Nullable="false" />
+    <Property Name="Ad" Type="nvarchar" MaxLength="50" />
+    <Property Name="Soyad" Type="nvarchar" MaxLength="50" />
+    <Property Name="Telefon" Type="nvarchar" MaxLength="13" />
+    <Property Name="Adres" Type="nvarchar" MaxLength="100" />
+    <Property Name="Eposta" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="KullaniciAdi" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Sifre" Type="nvarchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Ozellik">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="OzellikTipi" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Asansor" Type="nvarchar" MaxLength="50" />
+    <Property Name="Somine" Type="nvarchar" MaxLength="50" />
+    <Property Name="Kapici" Type="nvarchar" MaxLength="50" />
+    <Property Name="Alarm" Type="nvarchar" MaxLength="50" />
+    <Property Name="Park" Type="nvarchar" MaxLength="50" />
+    <Property Name="Yuruyus" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="Resim">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="IlanId" Type="int" Nullable="false" />
+    <Property Name="ResimAdi" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="ResimYol" Type="nvarchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Rol">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="RolAdi" Type="nvarchar" MaxLength="50" />
+    <Property Name="Aciklama" Type="nvarchar" MaxLength="500" />
+  </EntityType>
+  <Association Name="FK_Ilan_Detay">
+    <End Role="Detay" Type="Self.Detay" Multiplicity="1" />
+    <End Role="Ilan" Type="Self.Ilan" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Detay">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Ilan">
+        <PropertyRef Name="DetayId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Ilan_Kategori">
+    <End Role="Kategori" Type="Self.Kategori" Multiplicity="1" />
+    <End Role="Ilan" Type="Self.Ilan" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Kategori">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Ilan">
+        <PropertyRef Name="KategoriId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Ilan_Kullanici">
+    <End Role="Kullanici" Type="Self.Kullanici" Multiplicity="1" />
+    <End Role="Ilan" Type="Self.Ilan" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Kullanici">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Ilan">
+        <PropertyRef Name="KullaniciId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Ilan_Ozellik">
+    <End Role="Ozellik" Type="Self.Ozellik" Multiplicity="1" />
+    <End Role="Ilan" Type="Self.Ilan" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Ozellik">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Ilan">
+        <PropertyRef Name="OzellikId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Kullanici_Rol">
+    <End Role="Rol" Type="Self.Rol" Multiplicity="1" />
+    <End Role="Kullanici" Type="Self.Kullanici" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Rol">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Kullanici">
+        <PropertyRef Name="RolId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Resim_Ilan">
+    <End Role="Ilan" Type="Self.Ilan" Multiplicity="1" />
+    <End Role="Resim" Type="Self.Resim" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Ilan">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Resim">
+        <PropertyRef Name="IlanId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="EmlakModelStoreContainer">
+    <EntitySet Name="Detay" EntityType="Self.Detay" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Ilan" EntityType="Self.Ilan" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Kategori" EntityType="Self.Kategori" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Kullanici" EntityType="Self.Kullanici" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Ozellik" EntityType="Self.Ozellik" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Resim" EntityType="Self.Resim" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Rol" EntityType="Self.Rol" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_Ilan_Detay" Association="Self.FK_Ilan_Detay">
+      <End Role="Detay" EntitySet="Detay" />
+      <End Role="Ilan" EntitySet="Ilan" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Ilan_Kategori" Association="Self.FK_Ilan_Kategori">
+      <End Role="Kategori" EntitySet="Kategori" />
+      <End Role="Ilan" EntitySet="Ilan" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Ilan_Kullanici" Association="Self.FK_Ilan_Kullanici">
+      <End Role="Kullanici" EntitySet="Kullanici" />
+      <End Role="Ilan" EntitySet="Ilan" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Ilan_Ozellik" Association="Self.FK_Ilan_Ozellik">
+      <End Role="Ozellik" EntitySet="Ozellik" />
+      <End Role="Ilan" EntitySet="Ilan" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Kullanici_Rol" Association="Self.FK_Kullanici_Rol">
+      <End Role="Rol" EntitySet="Rol" />
+      <End Role="Kullanici" EntitySet="Kullanici" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Resim_Ilan" Association="Self.FK_Resim_Ilan">
+      <End Role="Ilan" EntitySet="Ilan" />
+      <End Role="Resim" EntitySet="Resim" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
